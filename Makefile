@@ -1,6 +1,7 @@
 CC=gcc
-OBJDIR:=$(shell mktemp -d)
-CFLAGS=-Wall -Wextra -std=c11 -O2
+LD=ld
+OBJDIR:=$(shell [ -d obj ] || mkdir obj && echo "obj")
+CFLAGS=-Wall -Wextra -std=c11 -g
 LDFLAGS=-ldl
 
 P=main.out
@@ -14,7 +15,7 @@ $(P): $(OBJDIR)/src $(patsubst %, $(OBJDIR)/%, $(OBJ))
 
 
 $(OBJDIR)/libmain.o: src/main/libmain.so
-	ld -r -b binary -o $@ $^
+	$(LD) -r -b binary -o $@ $^
 
 src/main/libmain.so:
 	$(MAKE) -C src/main
@@ -27,4 +28,4 @@ $(OBJDIR)/src:
 
 clean:
 	$(MAKE) -C src/main clean
-	rm -rf $(P)
+	rm -rf $(P) obj

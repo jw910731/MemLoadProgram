@@ -31,7 +31,7 @@ int setup_memfd(){
     if (memfd == -1){
         error("memfd_create()");
     }
-    if(write(memfd, &(_binary_src_main_libmain_so_start),_binary_src_main_libmain_so_size) < 0){
+    if(write(memfd, &(_binary_src_main_libmain_so_start), &(_binary_src_main_libmain_so_end) - &(_binary_src_main_libmain_so_start)) < 0){
         close(memfd);
         error("write()");
     }

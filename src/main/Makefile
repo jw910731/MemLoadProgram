@@ -1,5 +1,5 @@
 CC=gcc
-OBJDIR:=$(shell mktemp -d)
+OBJDIR:=$(shell [ -d ../../obj/src/main ] || mkdir -p ../../obj/src/main && echo "../../obj/src/main")
 CFLAGS=-Wall -Wextra -std=c11 -O2 -fPIC
 LDFLAGS=-shared
 
